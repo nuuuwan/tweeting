@@ -60,7 +60,8 @@ def _run():
             prev_id = twtr.tweet(tweet_text_single).id
         else:
             prev_id = twtr.tweet(
-                tweet_text_single, in_reply_to_status_id=prev_id
+                tweet_text_single,
+                in_reply_to_status_id=prev_id,
             ).id
 
 
