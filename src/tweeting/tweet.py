@@ -43,6 +43,25 @@ def _run():
         args.twtr_access_token,
         args.twtr_access_token_secret,
     )
+    if not twtr:
+        return sys.exit(-1)
+
+    has_invalid_tweets = False
+    for single_tweet_text in tweet_text.split('\n-----'):
+        prev_id = None
+        first_id = None
+        for thread_paragraph_text in single_tweet_text.split('\n...'):
+            len_tweet = len(thread_paragraph_text)
+            if len_tweet > 280:
+                has_invalid_tweets = True
+                break
+            if len_tweet < 10:
+                has_invalid_tweets = True
+                break
+
+    if has_invalid_tweets:
+        print('Some tweets might be too long or too short!')
+        return sys.exit(-1)
 
     base_url = 'https://twitter.com/nuuuwan/status'
     for single_tweet_text in tweet_text.split('\n-----'):
