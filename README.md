@@ -13,3 +13,4 @@ pip install tweeting-nuuuwan
 
 ### 1.0.0 (PRE-RELEASE)
 * [2021-07-29 04:16PM] Update Initial Files
+* [2021-07-29 04:31PM] Add tweet file
