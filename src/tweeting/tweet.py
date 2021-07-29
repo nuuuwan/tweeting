@@ -1,4 +1,5 @@
 import argparse
+import os
 import sys
 
 from utils import filex
@@ -55,6 +56,7 @@ def _run():
         args.twtr_access_token_secret,
     )
     prev_id = None
+    first_id = None
     for tweet_text_single in split_text(tweet_text):
         if not prev_id:
             prev_id = twtr.tweet(tweet_text_single).id
@@ -63,6 +65,12 @@ def _run():
                 tweet_text_single,
                 in_reply_to_status_id=prev_id,
             ).id
+
+        if not first_id:
+            first_id = prev_id
+    os.system(
+        'open -a safari https://twitter.com/nuuuwan/status/%d' % (first_id,)
+    )
 
 
 if __name__ == '__main__':
