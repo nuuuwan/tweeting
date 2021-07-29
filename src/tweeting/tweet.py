@@ -10,18 +10,6 @@ def _stub():
     return True
 
 
-def split_text(text):
-    MAX_SPLIT_CHARS = 240
-    sentences = text.split('.')
-    split_text_list = ['']
-    for sentence in sentences:
-        if len(split_text_list[-1]) + len(sentence) > MAX_SPLIT_CHARS + 2:
-            split_text_list.append('')
-        split_text_list[-1] += sentence + '.'
-
-    return split_text_list
-
-
 def _run():
     parser = argparse.ArgumentParser(description='Tweeting Tools')
     for twtr_arg_name in [
@@ -55,22 +43,27 @@ def _run():
         args.twtr_access_token,
         args.twtr_access_token_secret,
     )
-    prev_id = None
-    first_id = None
-    for tweet_text_single in split_text(tweet_text):
-        if not prev_id:
-            prev_id = twtr.tweet(tweet_text_single).id
-        else:
-            prev_id = twtr.tweet(
-                tweet_text_single,
-                in_reply_to_status_id=prev_id,
-            ).id
 
-        if not first_id:
-            first_id = prev_id
-    os.system(
-        'open -a safari https://twitter.com/nuuuwan/status/%d' % (first_id,)
-    )
+    base_url = 'https://twitter.com/nuuuwan/status'
+    for single_tweet_text in tweet_text.split('\n-----'):
+        prev_id = None
+        first_id = None
+        for thread_paragraph_text in single_tweet_text.split('\n...'):
+            if len(thread_paragraph_text.strip()) == 0:
+                continue
+
+            if not prev_id:
+                prev_id = twtr.tweet(thread_paragraph_text).id
+            else:
+                prev_id = twtr.tweet(
+                    thread_paragraph_text,
+                    in_reply_to_status_id=prev_id,
+                ).id
+
+            if not first_id:
+                first_id = prev_id
+        if first_id:
+            os.system('open -a safari %s/%d' % (base_url, first_id))
 
 
 if __name__ == '__main__':
