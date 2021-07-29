@@ -1,12 +1,11 @@
 import unittest
 
-from tweeting import run_tweeting
+from tweeting import tweet
 
 
 class TestCase(unittest.TestCase):
-
     def test_dump(self):
-        self.assertTrue(run_tweeting._run())
+        self.assertTrue(tweet._stub())
 
 
 if __name__ == '__main__':
