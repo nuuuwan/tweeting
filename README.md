@@ -17,3 +17,4 @@ pip install tweeting-nuuuwan
 * [2021-07-29 05:29PM] Open Tweet on Tweet
 * [2021-07-29 05:37PM] Multiple Tweets in Tweet File
 * [2021-07-29 06:20PM] Catch too long tweet errors
+* [2021-07-30 03:27PM] Fix error messages
