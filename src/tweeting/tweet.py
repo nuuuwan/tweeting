@@ -47,7 +47,7 @@ def _run():
         return sys.exit(-1)
 
     base_url = 'https://twitter.com/nuuuwan/status'
-    for single_tweet_text in tweet_text.split('\n-----'):
+    for single_tweet_text in tweet_text.split('\n---'):
         if len(single_tweet_text) < 10:
             continue
 
